@@ -51,7 +51,8 @@ class CNN(NeuralNetWork):
                                                               int(layer["neuron_number"]),
                                                               layer["activation_function"],
                                                               regularizer=layer["regularizer"],
-                                                              weight_decay=layer["weight_decay"] )
+                                                              weight_decay=layer["weight_decay"],
+                                                              weights_init='xavier')
                 self.add_layer_to_dict(layer["type"], network)
             elif layer["type"] == "DropOut":
                 network = tflearn.layers.core.dropout(network, layer["keep_probability"])
@@ -63,7 +64,8 @@ class CNN(NeuralNetWork):
                                                  "valid",
                                                  layer["activation_function"],
                                                  regularizer=layer["regularizer"],
-                                                 weight_decay=layer["weight_decay"])
+                                                 weight_decay=layer["weight_decay"],
+                                                 weights_init='xavier')
                 self.add_layer_to_dict(layer["type"], network)
             elif layer["type"] == "ConvLayer":
                 network = tflearn.layers.conv_2d(network, int(layer["filter_number"]),
@@ -72,7 +74,8 @@ class CNN(NeuralNetWork):
                                                  layer["padding"],
                                                  layer["activation_function"],
                                                  regularizer=layer["regularizer"],
-                                                 weight_decay=layer["weight_decay"])
+                                                 weight_decay=layer["weight_decay"],
+                                                 weights_init='xavier')
                 self.add_layer_to_dict(layer["type"], network)
             elif layer["type"] == "MaxPooling":
                 network = tflearn.layers.conv.max_pool_2d(network, layer["strides"])
@@ -84,7 +87,8 @@ class CNN(NeuralNetWork):
                 width = network.get_shape()[2]
                 network = tflearn.layers.conv_2d(network, 1, [1, width], padding="valid",
                                                  regularizer=layer["regularizer"],
-                                                 weight_decay=layer["weight_decay"])
+                                                 weight_decay=layer["weight_decay"],
+                                                 weights_init='xavier')
                 self.add_layer_to_dict(layer["type"], network)
                 network = network[:, :, 0, 0]
                 btc_bias = tf.ones((self.input_num, 1))
@@ -98,7 +102,8 @@ class CNN(NeuralNetWork):
                 network = tflearn.fully_connected(network, self._rows+1,
                                                   activation="softmax",
                                                   regularizer=layer["regularizer"],
-                                                  weight_decay=layer["weight_decay"])
+                                                  weight_decay=layer["weight_decay"],
+                                                 weights_init='xavier')
             elif layer["type"] == "EIIE_Output_WithW":
                 width = network.get_shape()[2]
                 height = network.get_shape()[1]
@@ -108,7 +113,8 @@ class CNN(NeuralNetWork):
                 network = tf.concat([network, w], axis=3)
                 network = tflearn.layers.conv_2d(network, 1, [1, 1], padding="valid",
                                                  regularizer=layer["regularizer"],
-                                                 weight_decay=layer["weight_decay"])
+                                                 weight_decay=layer["weight_decay"],
+                                                 weights_init='xavier')
                 self.add_layer_to_dict(layer["type"], network)
                 network = network[:, :, 0, 0]
                 #btc_bias = tf.zeros((self.input_num, 1))

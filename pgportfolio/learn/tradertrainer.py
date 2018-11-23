@@ -235,11 +235,13 @@ class TraderTrainer:
                         training_time=int(time))
         new_data_frame = pd.DataFrame(result._asdict()).set_index("net_dir")
         if os.path.isfile(csv_dir):
+            print(new_data_frame)
             dataframe = pd.read_csv(csv_dir).set_index("net_dir")
             dataframe = dataframe.append(new_data_frame)
         else:
             dataframe = new_data_frame
         if int(index) > 0:
+            print(dataframe)
             dataframe.to_csv(csv_dir)
         return result
 
