@@ -9,7 +9,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-text_file = r"train_package\9\backtestlog.txt"
+text_file = r"train_package\10\backtestlog.txt"
 with open(text_file, 'r') as myfile:
     data=myfile.read().replace('\n', '')
     
@@ -28,6 +28,6 @@ for x_iter in weights_text:
     elif len(x_iter) == nccy:
         ccy = ['BTC']+[x.split("'")[1] for x in x_iter]
 
-weights = pd.DataFrame(weights, columns=ccy).astype(np.float64)
+weights = pd.DataFrame(weights).astype(np.float64)
 
-weights_melt = weights[2392:].reset_index(drop=True)
+weights_melt = weights[:2392].reset_index(drop=True)
