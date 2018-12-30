@@ -44,8 +44,28 @@ Under the `nntrader/nntrader` directory, there is a json file called `net_config
         * does not include cash (i.e. btc)
     * `"online"`
         * if it is not online, the program will select coins and generate inputs
-        from the local database.
+        from the local database (at `database/Data.db`)
         * if it is online, new data that dose not exist in the database would be saved
+
+#### Using SQlite
+
+If you want to supply your own test data (or use downloaded ones), name the `SQLite` file `Data.db` and place it in the folder `database` (i.e. replace the downloaded `database/Data.db` file). Make sure that the table `history` has the same schema as the downloaded file. If you're not sure, run `python main.py --mode=download-data` and inspect the schema.
+
+#### Using CSVs as Input
+
+We added the option of allowing users to provide `.csv` market data instead of a `SQLite` file which we found to be unwieldy for manual generation and inspection.
+
+We provided two tools: `csv_to_sqlite.py` and `sqlite_to_csv.py` that converts back and forth between `CSV` and `SQLite` data. To convert your own `CSV` file to the `SQLite` format to be consumed, do
+
+```
+python csv_to_sqlite.py --input=<path_to_your_input_csv>
+```
+
+By default, it will write to `database/Data.db`.
+
+`sqlite_to_csv.py` is a convenience debugging tool for you to inspect the downloaded `SQLite` file easily and understand what columns you need for training.
+
+Doing `csv_to_sqlite.py` then running the training procedure with `net_config.json`'s `online=False` will allow you to train the model using CSVs.
 
 ## Training and Tuning the hyper-parameters
 1. First, modify the `nntrader/nntrader/net_config.json` file.
