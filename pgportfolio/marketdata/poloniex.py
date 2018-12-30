@@ -1,7 +1,9 @@
 import json
 import time
 import sys
+import ssl
 from datetime import datetime
+import logging
 
 if sys.version_info[0] == 3:
     from urllib.request import Request, urlopen
@@ -50,7 +52,10 @@ class Poloniex:
         if command in PUBLIC_COMMANDS:
             url = 'https://poloniex.com/public?'
             args['command'] = command
-            ret = urlopen(Request(url + urlencode(args)))
+            url_to_request = url + urlencode(args)
+            logging.info('Downloading from URL=%s' % url_to_request)
+            context = ssl._create_unverified_context()
+            ret = urlopen(Request(url_to_request), context=context)
             return json.loads(ret.read().decode(encoding='UTF-8'))
         else:
             return False
