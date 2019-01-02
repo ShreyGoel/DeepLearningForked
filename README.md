@@ -149,10 +149,6 @@ backtest with rolling train(i.e. online learning in supervised learning)
 on the target model.
 * `--algo` could be either the name of traditional method or the index of training folder
 
-## Tradition Agent
-OLPS summary:
-
-![](https://github.com/DexHunter/nntrader/blob/dev/images/olps_algo.png)
 
 ## Plotting
 * type `python main.py --mode=plot --algos=crp,olmar,1 --labels=crp,olmar,nnagent
@@ -160,8 +156,6 @@ OLPS summary:
 * `--algos` could be the name of the tdagent algorithms or
 the index of nnagent
 * `--labels` is the name of related algorithm that will be shown in the legend
-* result is
-![](http://static.zybuluo.com/rooftrellen/u75egf9roy9c2sju48v6uu6o/result.png)
 
 ## present backtest results in a table
 * type `python main.py --mode=table --algos=1,olmar,ons --labels=nntrader,olmar,ons`
