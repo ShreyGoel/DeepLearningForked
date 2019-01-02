@@ -71,7 +71,7 @@ We added the option of allowing users to provide `.csv` market data instead of a
 We provided two tools: `csv_to_sqlite.py` and `sqlite_to_csv.py` that converts back and forth between `CSV` and `SQLite` data. To convert your own `CSV` file to the `SQLite` format to be consumed, do
 
 ```
-python csv_to_sqlite.py --input=<path_to_your_input_csv>
+python Data/csv_to_sqlite.py --input=<path_to_your_input_csv>
 ```
 
 By default, it will write to `database/Data.db`.
